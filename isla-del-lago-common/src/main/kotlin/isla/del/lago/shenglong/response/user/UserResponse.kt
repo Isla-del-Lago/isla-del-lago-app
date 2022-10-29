@@ -1,0 +1,10 @@
+package isla.del.lago.shenglong.response.user
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+class UserResponse {
+    var userId: Int? = null
+    var email: String? = null
+}
