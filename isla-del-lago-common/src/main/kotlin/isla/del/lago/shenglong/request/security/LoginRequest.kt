@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank
 class LoginRequest {
 
     @NotBlank
-    @Email
+    @Email(regexp = ".*@isla-del-lago\\.com")
     var email: String? = null
 
     @NotBlank
