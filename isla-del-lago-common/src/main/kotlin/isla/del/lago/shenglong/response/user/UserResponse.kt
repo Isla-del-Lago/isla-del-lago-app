@@ -5,6 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class UserResponse {
-    var userId: Int? = null
+    var userId: String? = null
     var email: String? = null
 }

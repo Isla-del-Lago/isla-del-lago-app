@@ -3,7 +3,7 @@ package isla.del.lago.shenglong.environment
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 
-@Configuration
+@Configuration("ShenglongEnvironment")
 class ShenglongEnvironment {
 
     companion object {

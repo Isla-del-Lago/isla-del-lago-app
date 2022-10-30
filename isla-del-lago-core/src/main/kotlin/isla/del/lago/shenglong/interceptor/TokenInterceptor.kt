@@ -1,6 +1,8 @@
 package isla.del.lago.shenglong.interceptor
 
+import isla.del.lago.shenglong.Constant
 import isla.del.lago.shenglong.exception.ErrorInfo
+import isla.del.lago.shenglong.extensions.objectToJson
 import isla.del.lago.shenglong.service.SecurityService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,14 +26,14 @@ class TokenInterceptor : HandlerInterceptor {
         logger.info("--TokenInterceptor:PreHandle --ValidateToken --HttpMethod:[{}] --Url:[{}]",
             request.method, request.requestURL)
 
-        val authToken: String? = request.getHeader(HttpHeaders.AUTHORIZATION)
+        val authToken: String = request.getHeader(HttpHeaders.AUTHORIZATION)?.let {
+            it.split(Constant.SPACE_SEPARATOR)[1]
+        } ?: run {
+            logger.error("--TokenInterceptor:PreHandle --Token Value Is Not Present")
 
-        authToken?.let {
-            securityService.validateToken(it)
-
-            return true
-        }.run {
             throw ErrorInfo.ERROR_INVALID_TOKEN.buildIdlException()
         }
+
+        return authToken.let { securityService.validateToken(it) }
     }
 }

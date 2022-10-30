@@ -2,6 +2,8 @@ package isla.del.lago.shenglong
 
 object Constant {
 
+    const val SPACE_SEPARATOR = " "
+
     object PathParam {
         const val BILL_ID = "bill-id"
         const val USER_ID = "user-id"

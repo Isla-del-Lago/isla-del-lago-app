@@ -7,5 +7,5 @@ interface SecurityService {
 
     fun login(loginRequest: LoginRequest): LoginResponse
 
-    fun validateToken(token: String)
+    fun validateToken(token: String): Boolean
 }

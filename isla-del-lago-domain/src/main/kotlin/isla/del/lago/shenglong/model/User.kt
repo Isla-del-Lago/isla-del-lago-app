@@ -18,9 +18,8 @@ import javax.validation.constraints.NotNull
 class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    var userId: Int? = null
+    var userId: String? = null
 
     @NotBlank
     @Email

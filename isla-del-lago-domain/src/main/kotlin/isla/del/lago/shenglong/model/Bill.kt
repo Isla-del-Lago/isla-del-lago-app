@@ -18,6 +18,7 @@ class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var billId: Int? = null
+    var traceabilityId: String? = null
     var startDate: LocalDate? = null
     var endDate: LocalDate? = null
     var residentialBasicCubicMeters: Int? = null

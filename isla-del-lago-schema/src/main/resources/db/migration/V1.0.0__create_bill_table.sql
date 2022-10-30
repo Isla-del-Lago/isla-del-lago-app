@@ -1,7 +1,8 @@
 CREATE TABLE isla_del_lago_database.bill(
     bill_id INT PRIMARY KEY AUTO_INCREMENT,
-    start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP NOT NULL,
+    traceability_id VARCHAR(40) UNIQUE NOT NULL,
+    start_date TIMESTAMP UNIQUE NOT NULL,
+    end_date TIMESTAMP UNIQUE NOT NULL,
     residential_basic_cubic_meters INT NOT NULL,
     residential_basic_superior_cubic_meters INT NOT NULL,
     discounts FLOAT(8, 2) NOT NULL,
