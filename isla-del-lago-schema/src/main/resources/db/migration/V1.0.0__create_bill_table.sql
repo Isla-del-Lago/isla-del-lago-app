@@ -1,4 +1,4 @@
-CREATE TABLE isla_del_lago_database.bill(
+CREATE TABLE bill(
     bill_id INT PRIMARY KEY AUTO_INCREMENT,
     traceability_id VARCHAR(40) UNIQUE NOT NULL,
     start_date TIMESTAMP UNIQUE NOT NULL,
