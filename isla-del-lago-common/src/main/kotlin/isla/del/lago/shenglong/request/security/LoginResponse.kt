@@ -14,6 +14,7 @@ class LoginResponse {
 
     @NotBlank
     var authToken: String? = null
+    var traceabilityId: String? = null
     var expirationDate: LocalDateTime = Date(System.currentTimeMillis() + Constant.Jwt.EXPIRATION_TIME)
         .toInstant()
         .atZone(ZoneId.of("America/Bogota"))

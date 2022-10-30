@@ -36,20 +36,20 @@ class SecurityServiceImpl : SecurityService {
     private lateinit var userRepository: UserRepository
 
     override fun login(loginRequest: LoginRequest): LoginResponse {
-        logger.info("--SecurityService:Login --LoginInfo:[{}]", loginRequest.objectToJson())
+        logger.info("--SecurityService:Login --UserEmail:[{}]", loginRequest.email)
 
         return userRepository.findByEmail(loginRequest.email!!)?.let { user ->
             if (loginRequest.password != user.password) {
-                logger.error("--SecurityService:Login --Invalid Login Credentials --LoginInfo:[{}]",
-                    loginRequest.objectToJson())
+                logger.error("--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
+                    loginRequest.email)
 
                 throw ErrorInfo.ERROR_INVALID_LOGIN_CREDENTIALS.buildIdlException()
             }
 
             LoginMapper.mapToLoginResponse(buildJwtToken(user))
         } ?: run {
-            logger.error("--SecurityService:Login --Invalid Login Credentials --LoginInfo:[{}]",
-                loginRequest.objectToJson())
+            logger.error("--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
+                loginRequest.email)
 
             throw ErrorInfo.ERROR_INVALID_LOGIN_CREDENTIALS.buildIdlException()
         }
