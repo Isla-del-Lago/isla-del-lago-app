@@ -6,7 +6,7 @@ import isla.del.lago.shenglong.response.bill.DeleteBillResponse
 
 interface BillService {
 
-    fun createBill(createBillRequest: CreateBillRequest): BillResponse
+    fun createBill(userId: String, createBillRequest: CreateBillRequest): BillResponse
 
     fun getAllBills(): List<BillResponse>
 

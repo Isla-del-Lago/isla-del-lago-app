@@ -9,7 +9,6 @@ import io.jsonwebtoken.security.SignatureException
 import isla.del.lago.shenglong.Constant
 import isla.del.lago.shenglong.environment.ShenglongEnvironment
 import isla.del.lago.shenglong.exception.ErrorInfo
-import isla.del.lago.shenglong.extensions.objectToJson
 import isla.del.lago.shenglong.mapper.LoginMapper
 import isla.del.lago.shenglong.model.User
 import isla.del.lago.shenglong.repository.UserRepository
@@ -22,7 +21,6 @@ import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Service
 import java.nio.charset.StandardCharsets
 import java.util.*
-import javax.validation.constraints.NotBlank
 
 @Service
 @DependsOn("ShenglongEnvironment")
@@ -40,23 +38,27 @@ class SecurityServiceImpl : SecurityService {
 
         return userRepository.findByEmail(loginRequest.email!!)?.let { user ->
             if (loginRequest.password != user.password) {
-                logger.error("--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
-                    loginRequest.email)
+                logger.error(
+                    "--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
+                    loginRequest.email
+                )
 
                 throw ErrorInfo.ERROR_INVALID_LOGIN_CREDENTIALS.buildIdlException()
             }
 
-            LoginMapper.mapToLoginResponse(buildJwtToken(user))
+            LoginMapper.mapToLoginResponse(user.userId!!, buildJwtToken(user))
         } ?: run {
-            logger.error("--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
-                loginRequest.email)
+            logger.error(
+                "--SecurityService:Login --Invalid Login Credentials --UserEmail:[{}]",
+                loginRequest.email
+            )
 
             throw ErrorInfo.ERROR_INVALID_LOGIN_CREDENTIALS.buildIdlException()
         }
     }
 
-    override fun validateToken(@NotBlank token: String): Boolean {
-        logger.info("--SecurityService:ValidateToken")
+    override fun validateToken(userId: String, token: String): Boolean {
+        logger.info("--SecurityService:ValidateToken --UserId:[{}]", userId)
 
         try {
             val key = Keys.hmacShaKeyFor(
@@ -67,7 +69,7 @@ class SecurityServiceImpl : SecurityService {
 
             return true
         } catch (ex: SignatureException) {
-            logger.error("--SecurityService:ValidateToken --Invalid JWT Token --Error:[{}]", ex.message)
+            logger.error("--SecurityService:ValidateToken --Invalid JWT Token  --Error:[{}]", ex.message)
         } catch (ex: MalformedJwtException) {
             logger.error("--SecurityService:ValidateToken --Invalid JWT Token --Error:[{}]", ex.message)
         } catch (ex: ExpiredJwtException) {
@@ -78,7 +80,7 @@ class SecurityServiceImpl : SecurityService {
             logger.error("--SecurityService:ValidateToken --JWT Claims String Is Empty --Error:[{}]", ex.message)
         }
 
-        logger.warn("--SecurityService:ValidateToken --Invalid Token")
+        logger.warn("--SecurityService:ValidateToken --Invalid Token --UserId:[{}]", userId)
 
         throw ErrorInfo.ERROR_INVALID_TOKEN.buildIdlException()
     }

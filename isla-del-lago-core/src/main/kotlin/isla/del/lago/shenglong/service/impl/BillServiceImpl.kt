@@ -10,6 +10,7 @@ import isla.del.lago.shenglong.service.BillService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class BillServiceImpl : BillService {
@@ -21,10 +22,18 @@ class BillServiceImpl : BillService {
     @Autowired
     private lateinit var billRepository: BillRepository
 
-    override fun createBill(createBillRequest: CreateBillRequest): BillResponse {
-        logger.info("--BillService:CreateBill --BillInfo:[{}]", createBillRequest.objectToJson())
+    override fun createBill(
+        userId: String,
+        createBillRequest: CreateBillRequest
+    ): BillResponse {
+        val traceabilityId = UUID.randomUUID().toString()
 
-        return billRepository.save(BillMapper.mapToSaveBill(createBillRequest)).let {
+        logger.info(
+            "--BillService:CreateBill --TraceabilityId:[{}] --UserId:[{}] --BillInfo:[{}]",
+            traceabilityId, userId, createBillRequest.objectToJson()
+        )
+
+        return billRepository.save(BillMapper.mapToSaveBill(traceabilityId, userId, createBillRequest)).let {
             BillMapper.mapToBillResponse(it)
         }
     }

@@ -6,8 +6,7 @@ import java.time.LocalDate
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class BillResponse {
-
     var billId: Int? = null
-    var startDate: LocalDate? = null
-    var endDate: LocalDate? = null
+    var startDate: String? = null
+    var endDate: String? = null
 }

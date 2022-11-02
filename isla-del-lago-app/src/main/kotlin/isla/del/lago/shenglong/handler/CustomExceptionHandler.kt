@@ -23,8 +23,10 @@ class CustomExceptionHandler {
 
     @ExceptionHandler
     fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
-        logger.error("--CustomExceptionHandler:HandleMethodArgumentNotValidException --Exception:[{}]",
-            ex.message)
+        logger.error(
+            "--CustomExceptionHandler:HandleMethodArgumentNotValidException --Exception:[{}]",
+            ex.message
+        )
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse().apply {
             code = ErrorCode.INVALID_REQUEST

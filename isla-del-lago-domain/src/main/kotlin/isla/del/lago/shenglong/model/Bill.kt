@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.sql.Timestamp
 import java.time.LocalDate
-import java.time.ZonedDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -19,8 +19,8 @@ class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var billId: Int? = null
     var traceabilityId: String? = null
-    var startDate: LocalDate? = null
-    var endDate: LocalDate? = null
+    var startDate: String? = null
+    var endDate: String? = null
     var residentialBasicCubicMeters: Int? = null
     var residentialBasicSuperiorCubicMeters: Int? = null
     var discounts: Float? = null
@@ -31,6 +31,8 @@ class Bill {
     var residentialBasicSewerage: Float? = null
     var residentialBasicSuperiorSewerage: Float? = null
     var cleaning: Int? = null
+    var createdBy: String? = null
+    var updatedBy: String? = null
     var creationDate: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
     var updateDate: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
 }

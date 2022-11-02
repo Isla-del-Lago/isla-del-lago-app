@@ -12,4 +12,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 }

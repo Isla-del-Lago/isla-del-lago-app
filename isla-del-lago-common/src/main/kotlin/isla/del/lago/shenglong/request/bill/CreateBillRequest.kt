@@ -2,19 +2,21 @@ package isla.del.lago.shenglong.request.bill
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import java.time.LocalDate
 import javax.validation.constraints.DecimalMin
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
 import javax.validation.constraints.PositiveOrZero
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class CreateBillRequest {
 
     @field:NotNull
-    var startDate: LocalDate? = null
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}\$")
+    var startDate: String? = null
 
     @field:NotNull
-    var endDate: LocalDate? = null
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}\$")
+    var endDate: String? = null
 
     @field:PositiveOrZero
     @field:NotNull

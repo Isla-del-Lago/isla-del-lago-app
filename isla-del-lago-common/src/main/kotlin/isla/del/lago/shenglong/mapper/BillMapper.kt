@@ -6,7 +6,8 @@ import isla.del.lago.shenglong.response.bill.BillResponse
 
 object BillMapper {
 
-    fun mapToSaveBill(createBillRequest: CreateBillRequest) = Bill().apply {
+    fun mapToSaveBill(traceabilityId: String, userId: String, createBillRequest: CreateBillRequest) = Bill().apply {
+        this.traceabilityId = traceabilityId
         startDate = createBillRequest.startDate
         endDate = createBillRequest.endDate
         residentialBasicCubicMeters = createBillRequest.residentialBasicCubicMeters
@@ -19,6 +20,8 @@ object BillMapper {
         residentialBasicSewerage = createBillRequest.residentialBasicSewerage
         residentialBasicSuperiorSewerage = createBillRequest.residentialBasicSuperiorSewerage
         cleaning = createBillRequest.cleaning
+        createdBy = userId
+        updatedBy = userId
     }
 
     fun mapToBillResponse(bill: Bill) = BillResponse().apply {

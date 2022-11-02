@@ -18,4 +18,8 @@ object Constant {
             const val EMAIL_CLAIM = "email"
         }
     }
+
+    object Header {
+        const val USER_ID = "user-id"
+    }
 }
