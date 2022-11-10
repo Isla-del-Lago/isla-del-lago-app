@@ -22,4 +22,8 @@ object Constant {
     object Header {
         const val USER_ID = "user-id"
     }
+
+    object QueryParam {
+        const val BILL_ID = "bill-id"
+    }
 }

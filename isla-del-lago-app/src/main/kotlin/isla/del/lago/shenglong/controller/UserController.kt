@@ -12,6 +12,7 @@ import javax.websocket.server.PathParam
 
 @RestController
 @RequestMapping(value = [Route.BASE_PATH + Route.User.BASE_PATH])
+@CrossOrigin("*")
 class UserController {
 
     @Autowired

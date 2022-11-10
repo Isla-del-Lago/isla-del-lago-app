@@ -32,4 +32,8 @@ object Route {
         const val BASE_PATH = "/user"
         const val BY_USER_ID = "/{${Constant.PathParam.USER_ID}}"
     }
+
+    object Consumption {
+        const val BASE_PATH = "/consumption"
+    }
 }

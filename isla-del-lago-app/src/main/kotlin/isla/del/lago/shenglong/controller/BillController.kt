@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank
 
 @RestController
 @RequestMapping(value = [Route.BASE_PATH + Route.Bill.BASE_PATH])
+@CrossOrigin("*")
 class BillController {
 
     @Autowired
