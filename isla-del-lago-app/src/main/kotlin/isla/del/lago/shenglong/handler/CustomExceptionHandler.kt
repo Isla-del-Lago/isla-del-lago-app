@@ -18,8 +18,14 @@ class CustomExceptionHandler {
     }
 
     @ExceptionHandler
-    fun handleIdlException(ex: IdlException) =
-        ResponseEntity.status(ex.status).body(ErrorResponse().apply { code = ex.code; message = ex.message })
+    fun handleIdlException(ex: IdlException): ResponseEntity<ErrorResponse> {
+        logger.error(
+            "--CustomExceptionHandler:HandleIdlException --ExceptionCode:[{}] --ExceptionMessage:[{}]",
+            ex.code, ex.message
+        )
+
+        return ResponseEntity.status(ex.status).body(ErrorResponse().apply { code = ex.code; message = ex.message })
+    }
 
     @ExceptionHandler
     fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {

@@ -3,7 +3,6 @@ package isla.del.lago.shenglong.model
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.sql.Timestamp
-import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import javax.persistence.Entity

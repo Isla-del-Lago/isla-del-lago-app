@@ -24,6 +24,14 @@ object Constant {
     }
 
     object QueryParam {
-        const val BILL_ID = "bill-id"
+        const val BILL_ID = "bill_id"
+    }
+
+    object Regex {
+        const val APARTMENT_REGEX = "(^apartamento_[2-5]0[1-2]\$|^local_[1-2]\$)"
+    }
+
+    object Consumption {
+        const val MAX_CONSUMPTION_SIZE = 10
     }
 }
