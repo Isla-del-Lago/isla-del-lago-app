@@ -9,6 +9,7 @@ import isla.del.lago.shenglong.model.Bill
 import isla.del.lago.shenglong.repository.ConsumptionRepository
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
 import isla.del.lago.shenglong.request.consumption.CreateConsumptionsRequest
+import isla.del.lago.shenglong.response.ConsumptionDetailResponse
 import isla.del.lago.shenglong.service.BillService
 import isla.del.lago.shenglong.service.ConsumptionService
 import org.slf4j.LoggerFactory
@@ -29,7 +30,7 @@ class ConsumptionServiceImpl(
         val traceabilityId = UUID.randomUUID().toString()
 
         logger.info(
-            "--ConsumptionServiceImpl:AddConsumptions --TraceabilityId:[{}] --UserId:[{}] --Request:[{}]",
+            "--ConsumptionService:AddConsumptions --TraceabilityId:[{}] --UserId:[{}] --Request:[{}]",
             traceabilityId, userId, createConsumptionsRequest.objectToJson()
         )
 
@@ -43,6 +44,21 @@ class ConsumptionServiceImpl(
             consumptionRepository.deleteAllByBillId(billId)
             throw ErrorInfo.ERROR_CONSUMPTIONS_NOT_CREATED.buildIdlException()
         }
+    }
+
+    override fun getConsumptionDetails(billId: Int, userId: String, apartmentId: String): ConsumptionDetailResponse {
+        logger.info(
+            "--ConsumptionService:GetConsumptionDetails --UserId:[{}] --BillId:[{}] --ApartmentId:[{}]",
+            userId, billId, apartmentId
+        )
+
+        val bill = billService.getBillById(billId)
+        val consumption = consumptionRepository.findByBillIdAndApartmentId(billId, apartmentId)
+            ?: run {
+                throw ErrorInfo.ERROR_CONSUMPTIONS_NOT_CREATED.buildIdlException()
+            }
+
+        return ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption)
     }
 
     fun saveConsumptionsOnDatabase(

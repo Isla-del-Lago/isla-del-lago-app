@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import javax.validation.ConstraintViolationException
 
 @ControllerAdvice
 class CustomExceptionHandler {
@@ -31,6 +32,19 @@ class CustomExceptionHandler {
     fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         logger.error(
             "--CustomExceptionHandler:HandleMethodArgumentNotValidException --Exception:[{}]",
+            ex.message
+        )
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse().apply {
+            code = ErrorCode.INVALID_REQUEST
+            message = ErrorCode.INVALID_REQUEST
+        })
+    }
+
+    @ExceptionHandler
+    fun handleConstraintViolationException(ex: ConstraintViolationException): ResponseEntity<ErrorResponse> {
+        logger.error(
+            "--CustomExceptionHandler:HandleConstraintViolationException --Exception:[{}]",
             ex.message
         )
 

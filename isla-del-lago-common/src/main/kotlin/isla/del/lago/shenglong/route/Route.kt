@@ -35,5 +35,6 @@ object Route {
 
     object Consumption {
         const val BASE_PATH = "/consumption"
+        const val CONSUMPTION_DETAILS = "/details"
     }
 }

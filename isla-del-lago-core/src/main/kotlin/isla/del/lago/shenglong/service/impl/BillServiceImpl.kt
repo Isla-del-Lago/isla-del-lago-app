@@ -58,7 +58,7 @@ class BillServiceImpl : BillService {
     override fun getBillById(id: Int): Bill {
         logger.info("--BillService:GetBillById --BillId:[{}]", id)
 
-        return billRepository.findById(id).orElseThrow()
+        return billRepository.findById(id).orElseThrow { ErrorInfo.ERROR_BILL_DOES_NOT_EXISTS.buildIdlException() }
     }
 
     override fun getPreviousBill(billStartDate: String): BillResponse {

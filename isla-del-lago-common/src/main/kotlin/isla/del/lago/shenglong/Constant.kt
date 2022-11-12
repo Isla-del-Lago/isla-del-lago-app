@@ -25,6 +25,7 @@ object Constant {
 
     object QueryParam {
         const val BILL_ID = "bill_id"
+        const val APARTMENT_ID = "apartment_id"
     }
 
     object Regex {

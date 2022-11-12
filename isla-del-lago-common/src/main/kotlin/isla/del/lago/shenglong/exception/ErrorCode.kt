@@ -7,4 +7,5 @@ object ErrorCode {
     const val INVALID_TOKEN = "invalid_token"
     const val CONSUMPTIONS_EXISTS_FOR_BILL_ID = "consumptions_exists_for_bill_id"
     const val CONSUMPTIONS_NOT_CREATED = "consumptions_not_created"
+    const val BILL_DOES_NOT_EXISTS = "the_bill_does_not_exists"
 }
