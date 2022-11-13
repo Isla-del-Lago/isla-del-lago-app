@@ -1,7 +1,6 @@
 package isla.del.lago.shenglong.mapper
 
 import isla.del.lago.shenglong.request.security.LoginResponse
-import java.util.*
 
 object LoginMapper {
 

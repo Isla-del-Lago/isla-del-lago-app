@@ -37,4 +37,8 @@ object Route {
         const val BASE_PATH = "/consumption"
         const val CONSUMPTION_DETAILS = "/details"
     }
+
+    object Apartment {
+        const val BASE_PATH = "/apartment"
+    }
 }
