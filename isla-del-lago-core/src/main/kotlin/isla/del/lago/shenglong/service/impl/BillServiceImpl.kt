@@ -41,14 +41,17 @@ class BillServiceImpl : BillService {
         }
     }
 
-    override fun getAllBills(): List<BillResponse> {
-        logger.info("--BillService:GetAllBills")
+    override fun getAllBills(userId: String): List<BillResponse> {
+        logger.info(
+            "--BillService:GetAllBills --UserId:[{}]",
+            userId
+        )
 
         return billRepository.findAll().map { bill -> BillMapper.mapToBillResponse(bill) }
     }
 
-    override fun deleteBillById(billId: Int): DeleteBillResponse {
-        logger.info("--BillService:DeleteBillById --BillId:[{}]", billId)
+    override fun deleteBillById(userId: String, billId: Int): DeleteBillResponse {
+        logger.info("--BillService:DeleteBillById --UserId:[{}] --BillId:[{}]", userId, billId)
 
         billRepository.deleteById(billId)
 

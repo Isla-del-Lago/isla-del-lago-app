@@ -2,7 +2,6 @@ package isla.del.lago.shenglong.controller
 
 import isla.del.lago.shenglong.Constant
 import isla.del.lago.shenglong.request.bill.CreateBillRequest
-import isla.del.lago.shenglong.response.bill.BillResponse
 import isla.del.lago.shenglong.route.Route
 import isla.del.lago.shenglong.service.BillService
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,14 +29,19 @@ class BillController {
             .body(billService.createBill(userId, body))
 
     @GetMapping
-    fun getAllBills(): ResponseEntity<List<BillResponse>> =
+    fun getAllBills(
+        @NotBlank @RequestHeader(Constant.Header.USER_ID) userId: String
+    ) =
         ResponseEntity
             .status(HttpStatus.OK)
-            .body(billService.getAllBills())
+            .body(billService.getAllBills(userId))
 
     @DeleteMapping(Route.Bill.BY_BILL_ID)
-    fun deleteBillById(@PathVariable(Constant.PathParam.BILL_ID) billId: Int) =
+    fun deleteBillById(
+        @NotBlank @RequestHeader(Constant.Header.USER_ID) userId: String,
+        @PathVariable(Constant.PathParam.BILL_ID) billId: Int
+    ) =
         ResponseEntity
             .status(HttpStatus.OK)
-            .body(billService.deleteBillById(billId))
+            .body(billService.deleteBillById(userId, billId))
 }

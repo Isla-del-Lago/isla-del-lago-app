@@ -9,9 +9,9 @@ interface BillService {
 
     fun createBill(userId: String, createBillRequest: CreateBillRequest): BillResponse
 
-    fun getAllBills(): List<BillResponse>
+    fun getAllBills(userId: String): List<BillResponse>
 
-    fun deleteBillById(billId: Int): DeleteBillResponse
+    fun deleteBillById(userId: String, billId: Int): DeleteBillResponse
 
     fun getBillById(id: Int): Bill
 
