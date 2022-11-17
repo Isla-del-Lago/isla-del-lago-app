@@ -3,7 +3,7 @@ package isla.del.lago.shenglong.mapper
 import isla.del.lago.shenglong.model.Bill
 import isla.del.lago.shenglong.model.Consumption
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
-import isla.del.lago.shenglong.response.ConsumptionDetailResponse
+import isla.del.lago.shenglong.response.consumption.ConsumptionDetailResponse
 
 object ConsumptionMapper {
 

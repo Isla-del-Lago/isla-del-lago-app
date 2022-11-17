@@ -1,4 +1,4 @@
-package isla.del.lago.shenglong.response
+package isla.del.lago.shenglong.response.consumption
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming

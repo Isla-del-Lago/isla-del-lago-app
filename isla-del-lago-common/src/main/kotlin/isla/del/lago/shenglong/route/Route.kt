@@ -1,6 +1,6 @@
 package isla.del.lago.shenglong.route
 
-import isla.del.lago.shenglong.Constant
+import isla.del.lago.shenglong.Constant.PathParam
 
 object Route {
 
@@ -25,17 +25,18 @@ object Route {
 
     object Bill {
         const val BASE_PATH = "/bill"
-        const val BY_BILL_ID = "/{${Constant.PathParam.BILL_ID}}"
+        const val BY_BILL_ID = "/{${PathParam.BILL_ID}}"
     }
 
     object User {
         const val BASE_PATH = "/user"
-        const val BY_USER_ID = "/{${Constant.PathParam.USER_ID}}"
+        const val BY_USER_ID = "/{${PathParam.USER_ID}}"
     }
 
     object Consumption {
         const val BASE_PATH = "/consumption"
         const val CONSUMPTION_DETAILS = "/details"
+        const val CONSUMPTION_DETAILS_BY_APARTMENT_ID = "$CONSUMPTION_DETAILS/apartment/{${PathParam.APARTMENT_ID}}"
     }
 
     object Apartment {

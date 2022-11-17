@@ -13,7 +13,8 @@ enum class ApartmentEnum(private val apartmentId: String, private val apartmentN
     APARTMENT_501("apartamento_501", "Apartamento 501"),
     APARTMENT_502("apartamento_502", "Apartamento 502"),
     LOCAL_1("local_1", "Local 1"),
-    LOCAL_2("local_2", "Local 2");
+    LOCAL_2("local_2", "Local 2"),
+    TOTAL("total", "total");
 
     companion object {
         fun getApartmentsInfo() = ApartmentEnum.values()

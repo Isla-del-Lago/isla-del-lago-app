@@ -9,7 +9,8 @@ import isla.del.lago.shenglong.model.Bill
 import isla.del.lago.shenglong.repository.ConsumptionRepository
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
 import isla.del.lago.shenglong.request.consumption.CreateConsumptionsRequest
-import isla.del.lago.shenglong.response.ConsumptionDetailResponse
+import isla.del.lago.shenglong.response.consumption.ConsumptionDetailByApartmentResponse
+import isla.del.lago.shenglong.response.consumption.ConsumptionDetailResponse
 import isla.del.lago.shenglong.service.BillService
 import isla.del.lago.shenglong.service.ConsumptionService
 import org.slf4j.LoggerFactory
@@ -59,6 +60,25 @@ class ConsumptionServiceImpl(
             }
 
         return ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption)
+    }
+
+    override fun getConsumptionDetailsByApartmentId(
+        userId: String,
+        apartmentId: String
+    ): List<ConsumptionDetailByApartmentResponse> {
+        logger.info(
+            "ConsumptionService:GetConsumptionDetailsByApartmentId --UserId:[{}] --ApartmentId:[{}]",
+            userId, apartmentId
+        )
+
+        return billService.getAllBills(userId).map {
+            ConsumptionDetailByApartmentResponse().apply {
+                billId = it.billId
+                startDate = it.startDate
+                endDate = it.endDate
+                consumptionDetail = getConsumptionDetails(it.billId!!, userId, apartmentId)
+            }
+        }
     }
 
     fun saveConsumptionsOnDatabase(

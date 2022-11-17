@@ -1,6 +1,7 @@
 package isla.del.lago.shenglong.controller
 
 import isla.del.lago.shenglong.Constant.Header
+import isla.del.lago.shenglong.Constant.PathParam
 import isla.del.lago.shenglong.Constant.QueryParam
 import isla.del.lago.shenglong.Constant.Regex
 import isla.del.lago.shenglong.request.consumption.CreateConsumptionsRequest
@@ -40,4 +41,13 @@ class ConsumptionController(private val consumptionService: ConsumptionService) 
         ResponseEntity
             .status(HttpStatus.OK)
             .body(consumptionService.getConsumptionDetails(billId, userId, apartmentId))
+
+    @GetMapping(Route.Consumption.CONSUMPTION_DETAILS_BY_APARTMENT_ID)
+    fun getConsumptionsByApartmentId(
+        @NotBlank @RequestHeader(Header.USER_ID) userId: String,
+        @NotBlank @Pattern(regexp = Regex.APARTMENT_REGEX) @PathVariable(PathParam.APARTMENT_ID) apartmentId: String
+    ) =
+        ResponseEntity
+            .status(HttpStatus.OK)
+            .body(consumptionService.getConsumptionDetailsByApartmentId(userId, apartmentId))
 }

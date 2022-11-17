@@ -7,6 +7,7 @@ object Constant {
     object PathParam {
         const val BILL_ID = "bill-id"
         const val USER_ID = "user-id"
+        const val APARTMENT_ID = "apartment-id"
     }
 
     object Jwt {
