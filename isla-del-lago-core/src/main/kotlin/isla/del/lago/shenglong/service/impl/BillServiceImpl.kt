@@ -36,6 +36,15 @@ class BillServiceImpl : BillService {
             traceabilityId, userId, createBillRequest.objectToJson()
         )
 
+        if (billRepository.existsByStartDateAndEndDate(createBillRequest.startDate!!, createBillRequest.endDate!!)) {
+            logger.warn(
+                "--BillService:CreateBill --TraceabilityId:[{}] --UserId:[{}] --Bill Already Exists",
+                traceabilityId, userId
+            )
+
+            throw ErrorInfo.ERROR_BILL_ALREADY_EXISTS.buildIdlException()
+        }
+
         return billRepository.save(BillMapper.mapToSaveBill(traceabilityId, userId, createBillRequest)).let {
             BillMapper.mapToBillResponse(it)
         }
