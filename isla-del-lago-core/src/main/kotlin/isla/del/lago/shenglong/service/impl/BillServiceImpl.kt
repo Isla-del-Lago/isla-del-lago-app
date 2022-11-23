@@ -36,7 +36,7 @@ class BillServiceImpl : BillService {
             traceabilityId, userId, createBillRequest.objectToJson()
         )
 
-        if (billRepository.existsByStartDateAndEndDate(createBillRequest.startDate!!, createBillRequest.endDate!!)) {
+        if (billRepository.existsByStartDateOrEndDate(createBillRequest.startDate!!, createBillRequest.endDate!!)) {
             logger.warn(
                 "--BillService:CreateBill --TraceabilityId:[{}] --UserId:[{}] --Bill Already Exists",
                 traceabilityId, userId

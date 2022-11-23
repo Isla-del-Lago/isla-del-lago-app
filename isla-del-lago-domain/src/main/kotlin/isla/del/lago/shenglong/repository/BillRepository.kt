@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface BillRepository : JpaRepository<Bill, Int> {
 
-    fun existsByStartDateAndEndDate(startDate: String, endDate: String): Boolean
+    fun existsByStartDateOrEndDate(startDate: String, endDate: String): Boolean
 }
