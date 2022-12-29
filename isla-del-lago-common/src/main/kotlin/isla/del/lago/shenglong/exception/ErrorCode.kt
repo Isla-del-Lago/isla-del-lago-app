@@ -9,4 +9,5 @@ object ErrorCode {
     const val CONSUMPTIONS_NOT_CREATED = "consumptions_not_created"
     const val BILL_DOES_NOT_EXISTS = "the_bill_does_not_exists"
     const val BILL_ALREADY_EXISTS = "bill_already_exists"
+    const val MISSING_AUTH_TOKEN = "missing_auth_token"
 }

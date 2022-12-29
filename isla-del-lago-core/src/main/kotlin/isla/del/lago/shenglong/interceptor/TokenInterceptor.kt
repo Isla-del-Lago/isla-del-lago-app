@@ -41,7 +41,7 @@ class TokenInterceptor : HandlerInterceptor {
                 userId
             )
 
-            throw ErrorInfo.ERROR_INVALID_TOKEN.buildIdlException()
+            throw ErrorInfo.ERROR_MISSING_AUTH_TOKEN.buildIdlException()
         }
 
         return authToken.let { securityService.validateToken(userId, it) }
