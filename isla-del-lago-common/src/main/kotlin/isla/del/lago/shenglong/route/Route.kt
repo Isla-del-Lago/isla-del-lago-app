@@ -19,7 +19,7 @@ object Route {
             private const val BASE_PATH = "/token"
             const val VALIDATE = "/validate"
             const val CREATE = "/create"
-            const val REFRESH = "/refresh"
+            const val REFRESH = "${BASE_PATH}/refresh"
         }
     }
 

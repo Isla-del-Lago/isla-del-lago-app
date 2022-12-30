@@ -85,6 +85,14 @@ class SecurityServiceImpl : SecurityService {
         throw ErrorInfo.ERROR_INVALID_TOKEN.buildIdlException()
     }
 
+    override fun refreshToken(userId: String): LoginResponse {
+        return userRepository.findUserByUserId(userId)
+            ?.let { LoginMapper.mapToLoginResponse(it.userId!!, buildJwtToken(it)) }
+            ?: run {
+                throw ErrorInfo.ERROR_INVALID_REQUEST.buildIdlException()
+            }
+    }
+
     private fun buildJwtToken(user: User): String = Jwts.builder()
         .setSubject(user.email)
         .claim(Constant.Jwt.Claims.USER_ID_CLAIM, user.userId)

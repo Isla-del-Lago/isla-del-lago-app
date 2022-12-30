@@ -26,6 +26,6 @@ class UserController {
     fun getAllUsers() = ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers())
 
     @DeleteMapping(Route.User.BY_USER_ID)
-    fun deleteUserById(@PathParam(Constant.PathParam.USER_ID) userId: Int) =
+    fun deleteUserById(@PathParam(Constant.PathParam.USER_ID) userId: String) =
         ResponseEntity.status(HttpStatus.OK).body(userService.deleteUserById(userId))
 }

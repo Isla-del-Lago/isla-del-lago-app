@@ -35,7 +35,7 @@ class UserServiceImpl : UserService {
         return userRepository.findAll().map { user -> UserMapper.mapToUserResponse(user) }
     }
 
-    override fun deleteUserById(userId: Int): DeleteUserResponse {
+    override fun deleteUserById(userId: String): DeleteUserResponse {
         logger.info("--UserServiceImpl:DeleteUserById --UserId:[{}]", userId)
 
         userRepository.deleteById(userId)

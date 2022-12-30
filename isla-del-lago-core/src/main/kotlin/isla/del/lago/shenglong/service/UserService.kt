@@ -10,5 +10,5 @@ interface UserService {
 
     fun getAllUsers(): List<UserResponse>
 
-    fun deleteUserById(userId: Int): DeleteUserResponse
+    fun deleteUserById(userId: String): DeleteUserResponse
 }

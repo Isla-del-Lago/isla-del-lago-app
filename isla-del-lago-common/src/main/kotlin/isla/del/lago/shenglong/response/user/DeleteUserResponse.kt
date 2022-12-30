@@ -5,5 +5,5 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class DeleteUserResponse {
-    var userId: Int? = null
+    var userId: String? = null
 }

@@ -8,4 +8,6 @@ interface SecurityService {
     fun login(loginRequest: LoginRequest): LoginResponse
 
     fun validateToken(userId: String, token: String): Boolean
+
+    fun refreshToken(userId: String): LoginResponse
 }
