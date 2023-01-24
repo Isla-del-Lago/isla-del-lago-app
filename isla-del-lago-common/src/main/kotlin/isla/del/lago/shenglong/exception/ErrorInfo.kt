@@ -8,6 +8,9 @@ import isla.del.lago.shenglong.exception.ErrorCode.INVALID_LOGIN_CREDENTIALS
 import isla.del.lago.shenglong.exception.ErrorCode.INVALID_REQUEST
 import isla.del.lago.shenglong.exception.ErrorCode.INVALID_TOKEN
 import isla.del.lago.shenglong.exception.ErrorCode.MISSING_AUTH_TOKEN
+import isla.del.lago.shenglong.exception.ErrorCode.UNAUTHORIZED_FLOW
+import isla.del.lago.shenglong.exception.ErrorCode.USER_EXISTS
+import isla.del.lago.shenglong.exception.ErrorCode.USER_NOT_FOUND
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.*
 
@@ -24,7 +27,10 @@ enum class ErrorInfo(
     ERROR_CONSUMPTIONS_NOT_CREATED(CONSUMPTIONS_NOT_CREATED, CONSUMPTIONS_NOT_CREATED, BAD_REQUEST),
     ERROR_BILL_DOES_NOT_EXISTS(BILL_DOES_NOT_EXISTS, BILL_DOES_NOT_EXISTS, BAD_REQUEST),
     ERROR_BILL_ALREADY_EXISTS(BILL_ALREADY_EXISTS, BILL_ALREADY_EXISTS, CONFLICT),
-    ERROR_MISSING_AUTH_TOKEN(MISSING_AUTH_TOKEN, MISSING_AUTH_TOKEN, BAD_REQUEST);
+    ERROR_MISSING_AUTH_TOKEN(MISSING_AUTH_TOKEN, MISSING_AUTH_TOKEN, BAD_REQUEST),
+    ERROR_USERS_EXISTS(USER_EXISTS, USER_EXISTS, CONFLICT),
+    ERROR_USER_NOT_FOUND(USER_NOT_FOUND, USER_NOT_FOUND, BAD_REQUEST),
+    ERROR_UNAUTHORIZED_FLOW(UNAUTHORIZED_FLOW, UNAUTHORIZED_FLOW, FORBIDDEN);
 
     fun buildIdlException(): IdlException = IdlException(errorCode, errorMessage, httpStatus)
 }
