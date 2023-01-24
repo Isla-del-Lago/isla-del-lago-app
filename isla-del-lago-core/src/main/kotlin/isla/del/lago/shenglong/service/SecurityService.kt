@@ -10,4 +10,6 @@ interface SecurityService {
     fun validateToken(userId: String, token: String): Boolean
 
     fun refreshToken(userId: String): LoginResponse
+
+    fun validateUserRole(userId: String, path: String, httpMethod: String): Boolean
 }

@@ -1,6 +1,6 @@
 package isla.del.lago.shenglong.service.impl
 
-import isla.del.lago.shenglong.extensions.objectToJson
+import isla.del.lago.shenglong.exception.ErrorInfo
 import isla.del.lago.shenglong.mapper.UserMapper
 import isla.del.lago.shenglong.repository.UserRepository
 import isla.del.lago.shenglong.request.user.CreateUserRequest
@@ -10,6 +10,7 @@ import isla.del.lago.shenglong.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.sql.SQLException
 
 @Service
 class UserServiceImpl : UserService {
@@ -22,10 +23,18 @@ class UserServiceImpl : UserService {
     private lateinit var userRepository: UserRepository
 
     override fun createUser(createUserRequest: CreateUserRequest): UserResponse {
-        logger.info("--UserServiceImpl:CreateUser --UserInfo:[{}]", createUserRequest.objectToJson())
+        logger.info("--UserServiceImpl:CreateUser --UserEmail:[{}]", createUserRequest.email)
 
-        return userRepository.save(UserMapper.mapToSaveUser(createUserRequest)).let {
-            UserMapper.mapToUserResponse(it)
+        return try {
+            userRepository.save(UserMapper.mapToSaveUser(createUserRequest)).let {
+                UserMapper.mapToUserResponse(it)
+            }
+        } catch (ex: Exception) {
+            logger.error(
+                "---UserServiceImpl:CreateUser --Error Creating User --UserEmail:[{}] --Exception:[{}]",
+                createUserRequest.email, ex.message
+            )
+            throw ErrorInfo.ERROR_USERS_EXISTS.buildIdlException()
         }
     }
 
@@ -41,5 +50,17 @@ class UserServiceImpl : UserService {
         userRepository.deleteById(userId)
 
         return DeleteUserResponse().apply { this.userId = userId }
+    }
+
+    override fun getUserById(userId: String): UserResponse {
+        logger.info("--UserServiceImpl:GetUserById --UserId:[{}]", userId)
+
+        userRepository.findUserByUserId(userId)?.let {
+            return UserMapper.mapToUserResponse(it)
+        } ?: run {
+            logger.error("--UserServiceImpl:GetUserById --UserId:[{}] --User Not Found", userId)
+
+            throw ErrorInfo.ERROR_USER_NOT_FOUND.buildIdlException()
+        }
     }
 }

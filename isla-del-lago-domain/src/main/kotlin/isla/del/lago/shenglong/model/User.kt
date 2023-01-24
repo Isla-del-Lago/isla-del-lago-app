@@ -27,8 +27,11 @@ class User {
     var password: String? = null
 
     @NotBlank
-    var creationDate: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
+    var name: String? = null
 
     @NotBlank
+    var role: String? = null
+
+    var creationDate: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
     var updateDate: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
 }

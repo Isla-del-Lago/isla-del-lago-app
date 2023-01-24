@@ -10,4 +10,6 @@ object ErrorCode {
     const val BILL_DOES_NOT_EXISTS = "the_bill_does_not_exists"
     const val BILL_ALREADY_EXISTS = "bill_already_exists"
     const val MISSING_AUTH_TOKEN = "missing_auth_token"
+    const val USER_EXISTS = "user_exists"
+    const val UNAUTHORIZED_FLOW = "unauthorized_flow"
 }

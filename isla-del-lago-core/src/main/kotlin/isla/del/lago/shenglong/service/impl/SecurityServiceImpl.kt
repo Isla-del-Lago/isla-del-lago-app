@@ -7,6 +7,7 @@ import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SignatureException
 import isla.del.lago.shenglong.Constant
+import isla.del.lago.shenglong.enums.RoleEnum
 import isla.del.lago.shenglong.environment.ShenglongEnvironment
 import isla.del.lago.shenglong.exception.ErrorInfo
 import isla.del.lago.shenglong.mapper.LoginMapper
@@ -93,10 +94,46 @@ class SecurityServiceImpl : SecurityService {
             }
     }
 
+    override fun validateUserRole(userId: String, path: String, httpMethod: String): Boolean {
+        return userRepository.findUserByUserId(userId)?.let { user ->
+            val isPathAllowed = try {
+                when (RoleEnum.valueOf(user.role!!)) {
+                    RoleEnum.ROOT -> true
+                    RoleEnum.ADMIN -> RoleEnum.validateAdminPaths(httpMethod, path)
+                    RoleEnum.USER -> RoleEnum.validateUserPaths(httpMethod, path)
+                    else -> false
+                }
+            } catch (ex: NullPointerException) {
+                logger.error(
+                    "--SecurityService:validateUserRole --Error Mapping Role --UserId:[{}] --Exception:[{}]",
+                    userId, ex.message
+                )
+
+                throw ErrorInfo.ERROR_INVALID_REQUEST.buildIdlException()
+            }
+
+            if (isPathAllowed!!.not()) {
+                logger.error(
+                    "--SecurityService:validateUserRole --Forbidden Flow --UserId:[{}] --Path:[{}] --HttpMethod:[{}]",
+                    userId, path, httpMethod
+                )
+
+                throw ErrorInfo.ERROR_UNAUTHORIZED_FLOW.buildIdlException()
+            }
+
+            return true
+        } ?: run {
+            logger.error("--SecurityService:validateUserRole --User Not Found --UserId:[{}}", userId)
+
+            throw ErrorInfo.ERROR_USER_NOT_FOUND.buildIdlException()
+        }
+    }
+
     private fun buildJwtToken(user: User): String = Jwts.builder()
         .setSubject(user.email)
         .claim(Constant.Jwt.Claims.USER_ID_CLAIM, user.userId)
         .claim(Constant.Jwt.Claims.EMAIL_CLAIM, user.email)
+        .claim(Constant.Jwt.Claims.USER_ROLE_CLAIM, user.role)
         .setIssuer(Constant.Jwt.ISSUER)
         .setIssuedAt(Date())
         .setExpiration(Date(System.currentTimeMillis() + Constant.Jwt.EXPIRATION_TIME))

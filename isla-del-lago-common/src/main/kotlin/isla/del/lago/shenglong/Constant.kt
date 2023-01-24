@@ -17,6 +17,7 @@ object Constant {
         object Claims {
             const val USER_ID_CLAIM = "user-id"
             const val EMAIL_CLAIM = "email"
+            const val USER_ROLE_CLAIM = "role"
         }
     }
 
