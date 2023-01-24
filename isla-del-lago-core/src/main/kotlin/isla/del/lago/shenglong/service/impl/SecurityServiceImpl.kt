@@ -133,6 +133,7 @@ class SecurityServiceImpl : SecurityService {
         .setSubject(user.email)
         .claim(Constant.Jwt.Claims.USER_ID_CLAIM, user.userId)
         .claim(Constant.Jwt.Claims.EMAIL_CLAIM, user.email)
+        .claim(Constant.Jwt.Claims.USER_NAME_CLAIM, user.name)
         .claim(Constant.Jwt.Claims.USER_ROLE_CLAIM, user.role)
         .setIssuer(Constant.Jwt.ISSUER)
         .setIssuedAt(Date())

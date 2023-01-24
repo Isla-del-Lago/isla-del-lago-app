@@ -29,6 +29,6 @@ enum class RoleEnum {
 
         fun validateUserPaths(httpMethod: String, path: String) = userPaths[httpMethod]?.contains(path)
 
-        fun validateAdminPaths(httpMethod: String, path: String) = adminPaths[httpMethod]?.contains(path)!!
+        fun validateAdminPaths(httpMethod: String, path: String) = adminPaths[httpMethod]?.contains(path)
     }
 }
