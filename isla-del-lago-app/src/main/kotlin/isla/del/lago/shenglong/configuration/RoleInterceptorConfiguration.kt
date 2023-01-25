@@ -6,6 +6,7 @@ import isla.del.lago.shenglong.route.Route
 import isla.del.lago.shenglong.service.SecurityService
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.HandlerMapping
@@ -35,6 +36,10 @@ class RoleInterceptor(private val securityService: SecurityService) : HandlerInt
     }
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
+        if (HttpMethod.OPTIONS.name == request.method) {
+            return true
+        }
+
         val userId = request.getHeader(Constant.Header.USER_ID)
             ?: run {
                 logger.error("--TokenInterceptor:PreHandle --UserId Is Not Present")
