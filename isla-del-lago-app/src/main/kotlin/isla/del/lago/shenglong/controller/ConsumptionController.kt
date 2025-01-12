@@ -1,5 +1,6 @@
 package isla.del.lago.shenglong.controller
 
+import isla.del.lago.shenglong.Constant
 import isla.del.lago.shenglong.Constant.Header
 import isla.del.lago.shenglong.Constant.PathParam
 import isla.del.lago.shenglong.Constant.QueryParam
@@ -50,4 +51,13 @@ class ConsumptionController(private val consumptionService: ConsumptionService) 
         ResponseEntity
             .status(HttpStatus.OK)
             .body(consumptionService.getConsumptionDetailsByApartmentId(userId, apartmentId))
+
+    @GetMapping(Route.Consumption.PREVIOUS_CONSUMPTIONS_BY_BILL_ID)
+    fun getConsumptionsFromPreviousBill(
+        @NotBlank @RequestHeader(Header.USER_ID) userId: String,
+        @Positive @PathVariable(PathParam.BILL_ID) billId: Int
+    ) =
+        ResponseEntity
+            .status(HttpStatus.OK)
+            .body(consumptionService.getConsumptionsFromPreviousBill(userId, billId))
 }

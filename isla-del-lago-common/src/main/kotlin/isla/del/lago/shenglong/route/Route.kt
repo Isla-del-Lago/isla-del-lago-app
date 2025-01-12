@@ -37,6 +37,7 @@ object Route {
         const val BASE_PATH = "/consumption"
         const val CONSUMPTION_DETAILS = "/details"
         const val CONSUMPTION_DETAILS_BY_APARTMENT_ID = "$CONSUMPTION_DETAILS/apartment/{${PathParam.APARTMENT_ID}}"
+        const val PREVIOUS_CONSUMPTIONS_BY_BILL_ID = "/previous/bill/{${PathParam.BILL_ID}}"
     }
 
     object Apartment {

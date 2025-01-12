@@ -10,8 +10,10 @@ import isla.del.lago.shenglong.model.Consumption
 import isla.del.lago.shenglong.repository.ConsumptionRepository
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
 import isla.del.lago.shenglong.request.consumption.CreateConsumptionsRequest
+import isla.del.lago.shenglong.response.consumption.ConsumptionByApartmentResponse
 import isla.del.lago.shenglong.response.consumption.ConsumptionDetailByApartmentResponse
 import isla.del.lago.shenglong.response.consumption.ConsumptionDetailResponse
+import isla.del.lago.shenglong.response.consumption.ConsumptionResponse
 import isla.del.lago.shenglong.service.BillService
 import isla.del.lago.shenglong.service.ConsumptionService
 import org.slf4j.LoggerFactory
@@ -79,7 +81,7 @@ class ConsumptionServiceImpl(
         apartmentId: String
     ): List<ConsumptionDetailByApartmentResponse> {
         logger.info(
-            "ConsumptionService:GetConsumptionDetailsByApartmentId --UserId:[{}] --ApartmentId:[{}]",
+            "--ConsumptionService:GetConsumptionDetailsByApartmentId --UserId:[{}] --ApartmentId:[{}]",
             userId, apartmentId
         )
 
@@ -90,6 +92,40 @@ class ConsumptionServiceImpl(
                 endDate = it.endDate
                 consumptionDetail = getConsumptionDetails(it.billId!!, userId, apartmentId)
             }
+        }
+    }
+
+    override fun getConsumptionsFromPreviousBill(userId: String, billId: Int): List<ConsumptionByApartmentResponse> {
+        logger.info(
+            "--ConsumptionService:GetConsumptionsFromPreviousBill --UserId:[{}] --BillId:[{}]",
+            userId, billId
+        )
+
+        try {
+            val bill = billService.getBillById(billId)
+            val previousBill = billService.getPreviousBill(bill.startDate!!)
+
+            val response = mutableListOf<ConsumptionByApartmentResponse>()
+
+            consumptionRepository.findAllByBillId(previousBill.billId!!).forEach {
+                val consumptionByApartment = ConsumptionByApartmentResponse().apply {
+                    apartmentId = it.apartmentId
+                    consumption = ConsumptionResponse().apply {
+                        value = it.value
+                    }
+                }
+
+                response.add(consumptionByApartment)
+            }
+
+            return response
+        } catch (ex: Exception) {
+            logger.warn(
+                "--ConsumptionService:GetConsumptionsFromPreviousBill --UserId:[{}] --BillId:[{}] --ExceptionMessage[{}]",
+                userId, billId, ex.message
+            )
+
+            return listOf()
         }
     }
 
