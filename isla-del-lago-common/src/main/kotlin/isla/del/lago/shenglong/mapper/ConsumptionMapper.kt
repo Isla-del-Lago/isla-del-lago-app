@@ -1,5 +1,6 @@
 package isla.del.lago.shenglong.mapper
 
+import isla.del.lago.shenglong.Constant
 import isla.del.lago.shenglong.model.Bill
 import isla.del.lago.shenglong.model.Consumption
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
@@ -19,18 +20,25 @@ object ConsumptionMapper {
     fun mapToConsumptionDetailResponse(bill: Bill, consumption: Consumption) = ConsumptionDetailResponse().apply {
         residentialBasicCubicMeters = consumption.residentialBasicCubicMeters
         residentialBasicSuperiorCubicMeters = consumption.residentialBasicSuperiorCubicMeters
-        discounts = (bill.discounts?.div(10))?.toDouble()
+        notResidentialCubicMeters = consumption.notResidentialCubicMeters
+        discounts = (bill.discounts?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE))?.toDouble()
         residentialFixedAqueduct = (bill.residentialFixedAqueduct?.div(10))?.toDouble()
         residentialBasicAqueduct =
             bill.residentialBasicAqueduct?.times(consumption.residentialBasicCubicMeters!!)
         residentialBasicSuperiorAqueduct =
             bill.residentialBasicSuperiorAqueduct?.times(consumption.residentialBasicSuperiorCubicMeters!!)
-        residentialFixedSewerage = bill.residentialFixedSewerage?.div(10)?.toDouble()
+        notResidentialFixedAqueduct =
+            (bill.notResidentialFixedAqueduct?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE))?.toDouble()
+        notResidentialAqueduct = bill.notResidentialAqueduct?.times(consumption.notResidentialCubicMeters!!)
+        residentialFixedSewerage = bill.residentialFixedSewerage?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE)?.toDouble()
         residentialBasicSewerage =
             bill.residentialBasicSewerage?.times(consumption.residentialBasicCubicMeters!!)
         residentialBasicSuperiorSewerage =
             bill.residentialBasicSuperiorSewerage?.times(consumption.residentialBasicSuperiorCubicMeters!!)
-        cleaning = bill.cleaning?.div(10)?.toDouble()
+        notResidentialFixedSewerage =
+            (bill.notResidentialFixedSewerage?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE))?.toDouble()
+        notResidentialSewerage = bill.notResidentialSewerage?.times(consumption.notResidentialCubicMeters!!)
+        cleaning = bill.cleaning?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE)?.toDouble()
         total = this.calculateTotal()
     }
 }

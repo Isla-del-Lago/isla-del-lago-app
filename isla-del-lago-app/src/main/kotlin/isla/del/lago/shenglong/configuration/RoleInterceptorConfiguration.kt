@@ -20,7 +20,7 @@ class RoleInterceptorConfiguration(private val roleInterceptor: RoleInterceptor)
 
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(roleInterceptor)
-            .addPathPatterns("/**")
+            .addPathPatterns(Route.BASE_PATH + "/**")
             .excludePathPatterns(
                 Route.BASE_PATH + Route.Health.BASE_PATH,
                 Route.BASE_PATH + Route.Security.BASE_PATH + Route.Security.LOGIN,
@@ -42,7 +42,7 @@ class RoleInterceptor(private val securityService: SecurityService) : HandlerInt
 
         val userId = request.getHeader(Constant.Header.USER_ID)
             ?: run {
-                logger.error("--TokenInterceptor:PreHandle --UserId Is Not Present")
+                logger.error("--RoleInterceptor:PreHandle --UserId Is Not Present")
                 throw ErrorInfo.ERROR_INVALID_REQUEST.buildIdlException()
             }
 

@@ -20,6 +20,7 @@ class Consumption {
     var value: Double? = null
     var residentialBasicCubicMeters: Double? = null
     var residentialBasicSuperiorCubicMeters: Double? = null
+    var notResidentialCubicMeters: Double? = null
     var createdAt: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
     var updatedAt: Timestamp = Timestamp.from(ZonedDateTime.now(ZoneId.of("America/Bogota")).toInstant())
     var createdBy: String? = null

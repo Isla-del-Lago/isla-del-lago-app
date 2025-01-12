@@ -20,11 +20,15 @@ class CreateBillRequest {
 
     @field:PositiveOrZero
     @field:NotNull
-    var residentialBasicCubicMeters: Int? = null
+    var residentialBasicCubicMeters: Float? = null
 
     @field:PositiveOrZero
     @field:NotNull
-    var residentialBasicSuperiorCubicMeters: Int? = null
+    var residentialBasicSuperiorCubicMeters: Float? = null
+
+    @field:PositiveOrZero
+    @field:NotNull
+    var notResidentialCubicMeters: Float? = null
 
     @field:DecimalMin(value = "0.0")
     @field:NotNull
@@ -44,6 +48,14 @@ class CreateBillRequest {
 
     @field:DecimalMin(value = "0.0")
     @field:NotNull
+    var notResidentialFixedAqueduct: Float? = null
+
+    @field:DecimalMin(value = "0.0")
+    @field:NotNull
+    var notResidentialAqueduct: Float? = null
+
+    @field:DecimalMin(value = "0.0")
+    @field:NotNull
     var residentialFixedSewerage: Float? = null
 
     @field:DecimalMin(value = "0.0")
@@ -53,6 +65,14 @@ class CreateBillRequest {
     @field:DecimalMin(value = "0.0")
     @field:NotNull
     var residentialBasicSuperiorSewerage: Float? = null
+
+    @field:DecimalMin(value = "0.0")
+    @field:NotNull
+    var notResidentialFixedSewerage: Float? = null
+
+    @field:DecimalMin(value = "0.0")
+    @field:NotNull
+    var notResidentialSewerage: Float? = null
 
     @field:NotNull
     @field:PositiveOrZero

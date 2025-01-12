@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(value = [Route.BASE_PATH + Route.Health.BASE_PATH])
+@RequestMapping(value = [Route.Health.BASE_PATH])
 @CrossOrigin("*")
 class HealthController {
 
