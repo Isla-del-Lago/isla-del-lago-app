@@ -6,6 +6,7 @@ import isla.del.lago.shenglong.exception.IdlException
 import isla.del.lago.shenglong.extensions.objectToJson
 import isla.del.lago.shenglong.mapper.ConsumptionMapper
 import isla.del.lago.shenglong.model.Bill
+import isla.del.lago.shenglong.model.Consumption
 import isla.del.lago.shenglong.repository.ConsumptionRepository
 import isla.del.lago.shenglong.request.consumption.ConsumptionInfo
 import isla.del.lago.shenglong.request.consumption.CreateConsumptionsRequest
@@ -54,10 +55,21 @@ class ConsumptionServiceImpl(
         )
 
         val bill = billService.getBillById(billId)
-        val consumption = consumptionRepository.findByBillIdAndApartmentId(billId, apartmentId)
-            ?: run {
-                throw ErrorInfo.ERROR_CONSUMPTIONS_NOT_CREATED.buildIdlException()
+
+        if (Constant.TOTAL == apartmentId) {
+            val consumptionDetailResponse = ConsumptionDetailResponse()
+
+            Constant.Apartment.ALL.forEach {
+                val consumption = getConsumptionByBillIdAndApartmentId(billId, it)
+                val mappedConsumption = ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption)
+
+                consumptionDetailResponse.updateFromPreviousResponse(mappedConsumption)
             }
+
+            return consumptionDetailResponse
+        }
+
+        val consumption = getConsumptionByBillIdAndApartmentId(billId, apartmentId)
 
         return ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption)
     }
@@ -100,10 +112,20 @@ class ConsumptionServiceImpl(
                     currentBill.residentialBasicCubicMeters?.times(percentageConsumed!!)
                 residentialBasicSuperiorCubicMeters =
                     currentBill.residentialBasicSuperiorCubicMeters?.times(percentageConsumed!!)
+                notResidentialCubicMeters = currentBill.notResidentialCubicMeters?.times(percentageConsumed!!)
             }
 
             consumptionRepository.save(consumptionToSave)
         }
+    }
+
+    private fun getConsumptionByBillIdAndApartmentId(billId: Int, apartmentId: String): Consumption {
+        val consumption = consumptionRepository.findByBillIdAndApartmentId(billId, apartmentId)
+            ?: run {
+                throw ErrorInfo.ERROR_CONSUMPTIONS_NOT_CREATED.buildIdlException()
+            }
+
+        return consumption
     }
 
     private fun calculateConsumptions(
