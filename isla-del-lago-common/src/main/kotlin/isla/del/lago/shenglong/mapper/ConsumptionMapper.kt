@@ -17,7 +17,7 @@ object ConsumptionMapper {
             value = consumptionInfo.value
         }
 
-    fun mapToConsumptionDetailResponse(bill: Bill, consumption: Consumption) = ConsumptionDetailResponse().apply {
+    fun mapToConsumptionDetailResponse(bill: Bill, consumption: Consumption, isToCalculateTotalBill: Boolean = false) = ConsumptionDetailResponse().apply {
         residentialBasicCubicMeters = consumption.residentialBasicCubicMeters
         residentialBasicSuperiorCubicMeters = consumption.residentialBasicSuperiorCubicMeters
         notResidentialCubicMeters = consumption.notResidentialCubicMeters
@@ -39,6 +39,6 @@ object ConsumptionMapper {
             (bill.notResidentialFixedSewerage?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE))?.toDouble()
         notResidentialSewerage = bill.notResidentialSewerage?.times(consumption.notResidentialCubicMeters!!)
         cleaning = bill.cleaning?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE)?.toDouble()
-        total = this.calculateTotal()
+        total = this.calculateTotal(isToCalculateTotalBill)
     }
 }
