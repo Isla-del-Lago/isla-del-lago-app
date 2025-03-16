@@ -23,12 +23,14 @@ class ConsumptionDetailResponse {
     var cleaning: Double? = 0.0
     var total: Double? = 0.0
 
-    fun calculateTotal(): Double {
+    fun calculateTotal(isToCalculateTotalBill: Boolean): Double {
         val totalCalculated =
             residentialFixedAqueduct!! + residentialBasicAqueduct!! + residentialBasicSuperiorAqueduct!! +
                     notResidentialFixedAqueduct!! + notResidentialAqueduct!! + residentialFixedSewerage!! +
                     notResidentialFixedSewerage!! + notResidentialSewerage!! + residentialBasicSewerage!! +
                     residentialBasicSuperiorSewerage!! + cleaning!! - discounts!!
+
+        if (isToCalculateTotalBill) return totalCalculated
 
         if (totalCalculated < 0) return 0.0
 

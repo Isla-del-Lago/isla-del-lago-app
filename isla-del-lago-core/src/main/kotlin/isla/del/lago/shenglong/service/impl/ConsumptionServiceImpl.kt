@@ -63,7 +63,7 @@ class ConsumptionServiceImpl(
 
             Constant.Apartment.ALL.forEach {
                 val consumption = getConsumptionByBillIdAndApartmentId(billId, it)
-                val mappedConsumption = ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption)
+                val mappedConsumption = ConsumptionMapper.mapToConsumptionDetailResponse(bill, consumption, true)
 
                 consumptionDetailResponse.updateFromPreviousResponse(mappedConsumption)
             }
