@@ -9,6 +9,7 @@ class ConsumptionDetailResponse {
     var residentialBasicCubicMeters: Double? = 0.0
     var residentialBasicSuperiorCubicMeters: Double? = 0.0
     var notResidentialCubicMeters: Double? = 0.0
+    var additionalDiscounts: Double? = 0.0
     var discounts: Double? = 0.0
     var residentialFixedAqueduct: Double? = 0.0
     var residentialBasicAqueduct: Double? = 0.0
@@ -28,7 +29,7 @@ class ConsumptionDetailResponse {
             residentialFixedAqueduct!! + residentialBasicAqueduct!! + residentialBasicSuperiorAqueduct!! +
                     notResidentialFixedAqueduct!! + notResidentialAqueduct!! + residentialFixedSewerage!! +
                     notResidentialFixedSewerage!! + notResidentialSewerage!! + residentialBasicSewerage!! +
-                    residentialBasicSuperiorSewerage!! + cleaning!! - discounts!!
+                    residentialBasicSuperiorSewerage!! + cleaning!! - discounts!! - additionalDiscounts!!
 
         if (isToCalculateTotalBill) return totalCalculated
 
@@ -41,6 +42,7 @@ class ConsumptionDetailResponse {
         residentialBasicCubicMeters = residentialBasicCubicMeters?.plus(previous.residentialBasicCubicMeters!!)
         residentialBasicSuperiorCubicMeters = residentialBasicSuperiorCubicMeters?.plus(previous.residentialBasicSuperiorCubicMeters!!)
         notResidentialCubicMeters = notResidentialCubicMeters?.plus(previous.notResidentialCubicMeters!!)
+        additionalDiscounts = additionalDiscounts?.plus(previous.additionalDiscounts!!)
         discounts = discounts?.plus(previous.discounts!!)
         residentialFixedAqueduct = residentialFixedAqueduct?.plus(previous.residentialFixedAqueduct!!)
         residentialBasicAqueduct = residentialBasicAqueduct?.plus(previous.residentialBasicAqueduct!!)

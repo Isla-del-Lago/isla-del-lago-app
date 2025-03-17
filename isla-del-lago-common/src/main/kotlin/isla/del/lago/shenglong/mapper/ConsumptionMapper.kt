@@ -21,6 +21,7 @@ object ConsumptionMapper {
         residentialBasicCubicMeters = consumption.residentialBasicCubicMeters
         residentialBasicSuperiorCubicMeters = consumption.residentialBasicSuperiorCubicMeters
         notResidentialCubicMeters = consumption.notResidentialCubicMeters
+        additionalDiscounts = (consumption.residentialBasicCubicMeters!!.div(bill.residentialBasicCubicMeters!!)).times(bill.additionalDiscounts!!.toDouble())
         discounts = (bill.discounts?.div(Constant.Consumption.MAX_CONSUMPTION_SIZE))?.toDouble()
         residentialFixedAqueduct = (bill.residentialFixedAqueduct?.div(10))?.toDouble()
         residentialBasicAqueduct =
