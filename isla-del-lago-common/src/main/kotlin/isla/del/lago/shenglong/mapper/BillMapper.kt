@@ -6,6 +6,9 @@ import isla.del.lago.shenglong.response.bill.BillResponse
 
 object BillMapper {
 
+    private const val FIXED_RESIDENTIAL_CUBIC_METERS = 1.77
+    private const val FIXED_NOT_RESIDENTIAL_CUBIC_METERS = 0.22
+
     fun mapToSaveBill(traceabilityId: String, userId: String, createBillRequest: CreateBillRequest) = Bill().apply {
         this.traceabilityId = traceabilityId
         startDate = createBillRequest.startDate
@@ -15,15 +18,15 @@ object BillMapper {
         notResidentialCubicMeters = createBillRequest.notResidentialCubicMeters
         additionalDiscounts = createBillRequest.additionalDiscounts
         discounts = createBillRequest.discounts
-        residentialFixedAqueduct = createBillRequest.residentialFixedAqueduct
+        residentialFixedAqueduct = createBillRequest.residentialFixedAqueduct!!.times(FIXED_RESIDENTIAL_CUBIC_METERS).toFloat()
         residentialBasicAqueduct = createBillRequest.residentialBasicAqueduct
         residentialBasicSuperiorAqueduct = createBillRequest.residentialBasicSuperiorAqueduct
-        notResidentialFixedAqueduct = createBillRequest.notResidentialFixedAqueduct
+        notResidentialFixedAqueduct = createBillRequest.notResidentialFixedAqueduct!!.times(FIXED_NOT_RESIDENTIAL_CUBIC_METERS).toFloat()
         notResidentialAqueduct = createBillRequest.notResidentialAqueduct
-        residentialFixedSewerage = createBillRequest.residentialFixedSewerage
+        residentialFixedSewerage = createBillRequest.residentialFixedSewerage!!.times(FIXED_RESIDENTIAL_CUBIC_METERS).toFloat()
         residentialBasicSewerage = createBillRequest.residentialBasicSewerage
         residentialBasicSuperiorSewerage = createBillRequest.residentialBasicSuperiorSewerage
-        notResidentialFixedSewerage = createBillRequest.notResidentialFixedSewerage
+        notResidentialFixedSewerage = createBillRequest.notResidentialFixedSewerage!!.times(FIXED_NOT_RESIDENTIAL_CUBIC_METERS).toFloat()
         notResidentialSewerage = createBillRequest.notResidentialSewerage
         cleaning = createBillRequest.cleaning
         createdBy = userId
