@@ -23,6 +23,7 @@ class Bill {
     var residentialBasicCubicMeters: Float? = null
     var residentialBasicSuperiorCubicMeters: Float? = null
     var notResidentialCubicMeters: Float? = null
+    var additionalDiscounts: Float? = null
     var discounts: Float? = null
     var residentialFixedAqueduct: Float? = null
     var residentialBasicAqueduct: Float? = null

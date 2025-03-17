@@ -13,6 +13,7 @@ object BillMapper {
         residentialBasicCubicMeters = createBillRequest.residentialBasicCubicMeters
         residentialBasicSuperiorCubicMeters = createBillRequest.residentialBasicSuperiorCubicMeters
         notResidentialCubicMeters = createBillRequest.notResidentialCubicMeters
+        additionalDiscounts = createBillRequest.additionalDiscounts
         discounts = createBillRequest.discounts
         residentialFixedAqueduct = createBillRequest.residentialFixedAqueduct
         residentialBasicAqueduct = createBillRequest.residentialBasicAqueduct

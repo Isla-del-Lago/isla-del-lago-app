@@ -36,6 +36,10 @@ class CreateBillRequest {
 
     @field:DecimalMin(value = "0.0")
     @field:NotNull
+    var additionalDiscounts: Float? = null
+
+    @field:DecimalMin(value = "0.0")
+    @field:NotNull
     var residentialFixedAqueduct: Float? = null
 
     @field:DecimalMin(value = "0.0")
